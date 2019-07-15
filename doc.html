@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>
+Libsimu1
+</title>
+</head>
+<body>
+<h1>
+Libsimu1
+</h1>
+<p>
+Libsimu1 was initially written to simulate the NMR
+behavior of a 1-spin system under free evolution
+or radio-frequency pulse action.
+</p>
+<p>
+Libsimu1 is able to compute the matrix that is associated
+to a rotation of given angle and axis, and to apply it to
+a vector.
+</p>
+<p>
+This is a C API.
+The user has to write a C program to use it.
+A simple executable program named demo can be built from
+the distribution file.
+The demo.c file provides an example of libsimu1 use.
+</p>
+<hr>
+<h2>
+Installation
+</h2>
+<ul>
+<li>
+Build the library: make
+</li>
+<li>
+Optional. Install it (as super-user): make install
+</li>
+<li>
+Test it: make demo.
+The result should look like this:
+<code>
+<BR>The 120.0 degrees rotation
+<BR>around the (1.0 1.0 1.0) axis
+<BR>transforms the (0.0 0.0 1.0) vector
+<BR>into the (1.0 -0.0 0.0) vector.
+<BR>
+</code>
+</li>
+</ul>
+<hr>
+<h2>
+The libsimu1 API
+</h2>
+<p>
+defines two data types:
+</p>
+<ul>
+<li>
+<code>Mat33</code> as <code>double Mat33[3][3]</code>.
+It is used to store the matrix of a rotation in a 3D vector space.
+</li>
+<li>
+<code>Vec3</code> as <code>double Vec3[3]</code>.
+It describes a vector of the physical 3D space.
+</li>
+</ul>
+<p>
+and two functions:
+</p>
+<ul>
+<li>
+<code>
+void matrot(Mat33 r, Vec3 axis, double angle)
+</code>
+computes the matrix m of the rotation that is defined by its angle,
+<B>in radians</B>, and its axis.
+The latter is defined by axis, a <B>unitary</B>vector.
+Libsimu1 will not normalize axis for you.
+A non-normalized axis vector produces a wrong rotation matrix.
+You have been warned.
+</li>
+<li>
+<code>
+void matvec(Mat33 r, Vec3 v1, Vec3 v2)
+</code>
+applies the rotation of matrix r to vector v1 to give vector v2.
+v1 and v2 parameters may be identical.
+</li>
+</ul>
+<hr>
+<p>
+Jean-Marc Nuzillard<BR>
+<a href="mailto:jm.nuzillard@univ-reims.fr">jm.nuzillard@univ-reims.fr</a>
+</p>
+<p>
+July 15<sup>th</sup> 2019
+</p>
+
+</body>
+</html>

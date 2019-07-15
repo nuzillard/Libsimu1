@@ -1,0 +1,112 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\newcommand{\ivec}{\vec{\imath}}
+\newcommand{\jvec}{\vec{\jmath}}
+\newcommand{\kvec}{\vec{k}}
+\newcommand{\uvec}{\vec{u}}
+\newcommand{\matrot}{\bm{R}_{\vec{u}, \theta}}
+\newcommand{\mvec}{\vec{M}}
+\newcommand{\mpar}{\mvec_{\|}}
+\newcommand{\mper}{\mvec_{\bot}}
+\newcommand{\mout}{\mvec_{\otimes}}
+\newcommand{\mrot}{\mvec_{\mbox{rot}}}
+\begin{document}
+\title{Matrix of a rotation in the 3D space}
+\author{Jean-Marc Nuzillard}
+\maketitle
+A rotation in a three-dimensional vector space is defined by a unitary vector $\vec{u}$
+that indicates the direction of the rotation axis and by a rotation angle $\theta$.
+A base of this space $B = (\ivec, \jvec, \kvec)$ constitutes a set of unitary and pairwise
+orthogonal vectors.
+This document shows how to write the matrix $\matrot$ in the base $B$.
+
+The projection $\mpar$ of any vector $\mvec$ on $\uvec$ is invariant by rotation around $\uvec$.
+\[ \mpar = (\mvec \cdot \uvec).\uvec\]
+The vector $\mper$ defined by:
+\[ \mper = \mvec - \mpar = \mvec - (\mvec \cdot \uvec).\uvec\ \]
+is orthogonal to $\uvec$ and therefore to $\mpar$:
+\[ (\mvec - (\mvec \cdot \uvec).\uvec) \cdot \uvec = \mvec \cdot \uvec - (\mvec \cdot \uvec).\uvec \cdot \uvec = 0 \]
+because $\uvec \cdot \uvec = 1$.
+$\mper$ rotates in the plane that is orthogonal to the rotation axis.
+The vector $\mout$ defined by:
+\[ \mout = \uvec \wedge \mper \]
+it orthogonal to $\mpar$ and to $\mper$. It can be also written as 
+\[ \mout = \uvec \wedge \mvec \]
+because 
+\[ (\mvec \cdot \uvec).\uvec \wedge \uvec = 0. \]
+
+From the definitions of $\mpar$, $\mper$, and $\mout$:
+\begin{eqnarray*}
+\mper \cdot \uvec & = & 0 \\
+\mout \cdot \uvec & = & 0 \\
+\mper \cdot \mout & = & 0 \\
+|| \mper || & = & || \mout ||
+\end{eqnarray*}
+
+Therefore, the vector
+\[ \mvec = \mpar + \mper \]
+is transformed by the rotation into
+\begin{eqnarray*}
+\mrot & = & \mpar + \cos\theta.\mper + \sin\theta.\mout \\
+& = & \cos\theta.\mvec + (1 - \cos\theta).(\mvec \cdot \uvec).\uvec + \sin\theta.\uvec \wedge \mvec
+\end{eqnarray*}
+because $\mpar$ is invariant by rotation around $\uvec$ and $\mper$ is rotated by $\theta$ in the vector plane
+defined by $\mper$ and $\mout$, two orthogonal vectors of the same norm.
+A rotation by $\theta = \pi/2$ transforms $\mper$ into $\mout$ as expected.
+
+The substitution of $\mvec$ by $\vec{\imath}$, $\vec{\jmath}$, and $\vec{k}$ provides
+the content of the columns of the three terms in $\matrot$ as a function of $\theta$
+and of $u_x, u_y, u_z$ (with $u_x^2 + u_y^2 + u_z^2 = 1$), the coordinates of $\uvec$.
+
+For example, $\ivec \cdot \uvec = u_x$
+so that
+\[ (\ivec \cdot \uvec).\uvec = 
+\begin{pmatrix}
+u_x^2 \\ u_x u_y \\ u_x u_z
+\end{pmatrix}
+\].
+
+As well,
+\[
+\uvec \wedge \ivec =
+\begin{pmatrix}
+u_x \\ u_y \\ u_z
+\end{pmatrix}
+\wedge
+\begin{pmatrix}
+1 \\ 0 \\ 0
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ u_z \\ -u_y
+\end{pmatrix}
+\]
+
+Finally,
+\begin{eqnarray*}
+\matrot & = & \cos\theta
+\begin{pmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{pmatrix}
++ (1 - \cos\theta)
+\begin{pmatrix}
+u_x^2 & u_x u_y & u_x u_z \\
+u_x u_y & u_y^2 & u_y u_z \\
+u_x u_z & u_y u_z & u_z^2
+\end{pmatrix} \\
+& & + \sin\theta
+\begin{pmatrix}
+0 & -u_z & u_y \\
+u_z & 0 & -u_x \\
+-u_y & u_x & 0
+\end{pmatrix}
+\end{eqnarray*}.
+
+\hfill$\blacksquare$
+\end{document}
